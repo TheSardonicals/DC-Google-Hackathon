@@ -39,8 +39,6 @@ class Music:
         return music[0]
 
 
-
-
 class User:
     def __init__(self, user_name, user_email, friends, status, preferences):
         self.__user_name = user_name
@@ -64,6 +62,41 @@ class User:
 
     def change_preferences(self, genre, preference):
         self.preferences[genre] = preference
+
+
+class PublicDiary:
+    def __init__(self, user):
+        self.posts = list()
+        self.user = user
+
+    def __addPost__(self, post):
+        self.posts.append(post)
+
+    def getPosts(self):
+        for post in self.posts:
+            print(post.thoughts, "\n")
+
+
+class PrivateDiary:
+    def __init__(self, user):
+        self.posts = list()
+        self.user = user
+
+    def __addPost__(self, post):
+        self.posts.append(post)
+
+    def getPosts(self):
+        for post in self.posts:
+            print(post.thoughts, "\n")
+
+
+class Post:
+    def __init_(self, user, thoughts, time, public):
+        self.thoughts = thoughts
+        self.time = time
+        self.user = user
+        self.public = public
+
 
 def main():
     SDL_Init(SDL_INIT_AUDIO)
