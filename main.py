@@ -1,4 +1,5 @@
 import os
+import spotipy
 os.environ["PYSDL2_DLL_PATH"] = os.path.dirname(os.path.abspath(__file__))
 from sdl2 import *
 from sdl2.sdlmixer import *
@@ -81,14 +82,14 @@ class Music:
             Mix_FreeMusic(self.song[song])
 
 class User:
-    def __init__(self, user_name, user_email, status = 'happy'):
+    def __init__(self):
         self.user_name = user_name
         self.user_email = user_email
         self.__friends = {}
-        self.__status = status
+        self.status = status
 
     def set_status(self, mood):
-        self.__status = mood
+        self.status = mood
 
     def add_friends(self, friend_name, friend_email):
         self.__friends[friend_name] = friend_email
@@ -99,6 +100,9 @@ class User:
     def get_email(self):
         return self.user_email
 
+    def get_mood(self):
+        return self.__status
+
     def remove_friend(self, friend_name):
         self.__friends.pop(friend_name)
 
@@ -108,7 +112,9 @@ def main():
     SDL_Init(SDL_INIT_AUDIO)
     Music_Player = Music()
     Music_Player.add_all_music_from_paths('./music/', ['R&B', 'Hip-Hop', 'Trap'])
-    playlist = Music_Player.queue_from_mood('Angry')
+    playlist = Music_Player.queue_from_mood('Happy')
+    print(playlist)
+    SDL_Delay(6000)
     Music_Player.play_from_queue(playlist)
     while(Mix_PlayingMusic()):
         if(not Mix_PlayingMusic()):
