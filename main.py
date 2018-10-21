@@ -55,17 +55,18 @@ class Music:
             if key in self.__moodtags[mood]:
                 for song in self.genre[key]:
                     self.add_song_to_queue(song)
+        return self.playlist
 
     def add_song_to_queue(self, name):
         if self.song[name] is None:
             return 'Not in Queue'
         self.playlist.append(name)
 
-    def play_from_queue(self):
-        if len(self.playlist) == 0:
+    def play_from_queue(self, playlist):
+        if len(playlist) == 0:
             print('No music in queue')
             return None
-        music = self.playlist.pop(0)
+        music = playlist.pop(0)
         print(music)
         self.play_music(music)
 
@@ -73,7 +74,11 @@ class Music:
     def get_songs_from_genre(self, genre):
         return self.genre[genre]
 
-
+    def __del__(self):
+        if Mix_Playing():
+            Mix_HaltMusic()
+        for song in self.song:
+            Mix_FreeMusic(self.song[song])
 
 class User:
     def __init__(self, user_name, user_email, status = 'happy'):
@@ -103,9 +108,8 @@ def main():
     SDL_Init(SDL_INIT_AUDIO)
     Music_Player = Music()
     Music_Player.add_all_music_from_paths('./music/', ['R&B', 'Hip-Hop', 'Trap'])
-    print(Music_Player.get_songs_from_genre('R&B'))
-    Music_Player.queue_from_mood('Happy')
-    Music_Player.play_from_queue()
+    playlist = Music_Player.queue_from_mood('Angry')
+    Music_Player.play_from_queue(playlist)
     while(Mix_PlayingMusic()):
         if(not Mix_PlayingMusic()):
             print('cool')
