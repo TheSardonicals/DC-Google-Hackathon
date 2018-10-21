@@ -65,9 +65,9 @@ class User:
 
 
 class PublicDiary:
-    def __init__(self, user):
+    def __init__(self, user_name):
         self.posts = list()
-        self.user = user
+        self.user_name = user_name
 
     def __addPost__(self, post):
         self.posts.append(post)
@@ -78,9 +78,9 @@ class PublicDiary:
 
 
 class PrivateDiary:
-    def __init__(self, user):
+    def __init__(self, user_name):
         self.posts = list()
-        self.user = user
+        self.__user_name = user_name
 
     def __addPost__(self, post):
         self.posts.append(post)
@@ -91,10 +91,10 @@ class PrivateDiary:
 
 
 class Post:
-    def __init_(self, user, thoughts, time, public):
+    def __init__(self, user_name, thoughts, time, public):
         self.thoughts = thoughts
         self.time = time
-        self.user = user
+        self.__user_name = user_name
         self.public = public
 
 
