@@ -65,8 +65,6 @@ class User:
     def change_preferences(self, genre, preference):
         self.preferences[genre] = preference
 
-
-
 def main():
     SDL_Init(SDL_INIT_AUDIO)
     Music_Player = Music()
